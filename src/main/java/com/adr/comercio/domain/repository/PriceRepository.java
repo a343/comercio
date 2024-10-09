@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PriceRepository extends JpaRepository<Price, Long> {
 
-    List<Price> findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+    Price findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
             String brandId,
             String productId,
             OffsetDateTime fecha);
