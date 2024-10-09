@@ -1,0 +1,25 @@
+server:
+  error:
+    include-stacktrace: never
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
+spring:
+  application:
+    name: comercio
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: null
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  h2:
+    console:
+      enabled: true

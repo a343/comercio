@@ -1,0 +1,84 @@
+openapi: 3.1.1
+info:
+  title: Comercio API
+  description: Información del Comercio
+  version: 1.0.0
+paths:
+  /price/{productId}/{brandId}/:
+    get:
+      tags:
+        - Product
+      summary: Obtener el precio del producto buscando por ID de empresa, producto y fecha de aplicacion.
+      description: Obtener el precio del producto buscando por ID de empresa, producto y fecha de aplicacion.
+      operationId: getPriceInfoByProduct
+      parameters:
+        - in: path
+          name: brandId
+          description: Shop id
+          required: true
+          schema:
+            type: string
+          example: '1'
+        - in: path
+          name: productId
+          description: Product id
+          required: true
+          schema:
+            type: string
+          example: '1565'
+        - in: query
+          name: applicationDate
+          description: Application date
+          required: true
+          schema:
+            type: string
+            format: date-time
+          example: '2023-05-01T14:30:00Z'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceDTO'
+              example:
+                brandId: '1'
+                productId: '1565'
+                consultationDate: '2023-05-01T14:30:00Z'
+                precio: 19.99
+                curr: EUR
+        '400':
+          description: Error en la URL
+        '204':
+          description: No encontrado
+        '422':
+          description: Base de datos no accesible
+        '500':
+          description: Internal Server Error
+
+components:
+  schemas:
+    PriceDTO:
+      type: object
+      properties:
+        brandId:
+          description: company id
+          type: string
+          example: '1'
+        productId:
+          description: product id
+          type: string
+          example: '1565'
+        applicationDate:
+          description: application date
+          type: string
+          format: date-time
+          example: '2023-05-01T14:30:00Z'
+        price:
+          description: price
+          type: number
+          example: 19.99
+        currency:
+          description: currency
+          type: string
+          example: EUR
