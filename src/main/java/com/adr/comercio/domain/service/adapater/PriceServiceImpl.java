@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +27,9 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public PriceDTO getPriceInfoByProduct(String brandId, String productId, OffsetDateTime applicationDate) {
 
-        Price price = priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId, productId, applicationDate);
+        List<Price> prices = priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId, productId, applicationDate,applicationDate);
+        Price price = prices.stream().max((p1, p2) -> p1.getPriority().compareTo(p2.getPriority())).get();
+
         logger.debug("Got price from database ", price);
 
         return priceConverter.convert(price);

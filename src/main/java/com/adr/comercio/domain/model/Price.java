@@ -38,7 +38,7 @@ public class Price implements Serializable {
 
     @Schema(name = "price_list",
             description = " Identificador de la tarifa de precios " + "aplicable", example = "2")
-    private int priceList;
+    private Integer priceList;
 
     @Schema(name = "startDate",
             description = " Fecha en la que se empieza a aplicar aplicacion de la tarifa",
@@ -53,11 +53,11 @@ public class Price implements Serializable {
 
 
     @Schema(name = "priority", description = "prioridad de aplicacion de la tarifa", example = "1")
-    private short priority;
+    private Long priority;
 
     @Column(name = "price")
     @Schema(name = "precio", description = " Precio del producto", example = "21.99")
-    private double precio;
+    private Double precio;
 
     @Schema(name = "curr", description = " Moneda en la que se paga", example = "EUR")
     private String curr;
