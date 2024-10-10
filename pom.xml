@@ -87,7 +87,7 @@
                         </goals>
                         <configuration>
                             <inputSpec>
-                                C:/personal/workspace/comercio/src/main/resources/openapi.yml
+                                C:/personal/workspace/comercio/src/main/resources/api.yaml
                             </inputSpec>
                             <generatorName>spring</generatorName>
                             <generateModelDocumentation>true</generateModelDocumentation>
