@@ -32,8 +32,8 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
-          example: '2023-05-01T14:30:00Z'
+            format: LocalDateTime
+          example: '2023-05-01T14:30:00'
       responses:
         '200':
           description: Successful operation
@@ -72,13 +72,13 @@ components:
         startDate:
           description: start application date
           type: string
-          format: date-time
-          example: '2023-05-01T14:30:00Z'
+          format: LocalDateTime
+          example: '2023-05-01T14:30:00'
         endDate:
           description: end application date
           type: string
-          format: date-time
-          example: '2023-05-01T14:30:00Z'
+          format: LocalDateTime
+          example: '2023-05-01T14:30:00'
         price:
           description: price
           type: number

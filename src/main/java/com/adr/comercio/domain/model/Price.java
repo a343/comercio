@@ -9,9 +9,10 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-@Table(name = "Product")
+@Table(name = "PRICE")
 @Entity
 @Getter
 @Setter
@@ -28,37 +29,37 @@ public class Price implements Serializable {
 
     @NotNull
     @Column(name = "product_id")
-    @Schema(name = "productId", description = "Identificador código de producto", example = "35455")
+    @Schema(name = "productId", description = "Product id", example = "35455")
     private String productId;
 
     @NotNull
-    @Schema(name = "brand_id", description = "Id que representa la empresa del grupo", example = "1")
+    @Schema(name = "brand_id", description = "Shop id", example = "1")
     @Size(min = 1)
     private String brandId;
 
     @Schema(name = "price_list",
-            description = " Identificador de la tarifa de precios " + "aplicable", example = "2")
-    private Integer priceList;
+            description = "Tariff id", example = "2")
+    private String priceList;
 
-    @Schema(name = "startDate",
-            description = " Fecha en la que se empieza a aplicar aplicacion de la tarifa",
+    @Schema(name = "start_date",
+            description = "Tariff start date",
             example = "2023-05-01T14:30:00Z")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    private OffsetDateTime startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime startDate;
 
-    @Schema(name = "endDate", description = " Fecha en la que se finaliza la aplicacion de la tarifa",
+    @Schema(name = "end_date", description = "Tariff end date",
             example = "2023-05-01T14:30:00")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    private OffsetDateTime endDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime endDate;
 
 
-    @Schema(name = "priority", description = "prioridad de aplicacion de la tarifa", example = "1")
+    @Schema(name = "priority", description = "Tariff priority", example = "1")
     private Long priority;
 
     @Column(name = "price")
-    @Schema(name = "precio", description = " Precio del producto", example = "21.99")
-    private Double precio;
+    @Schema(name = "price", description = " Product price", example = "21.99")
+    private BigDecimal price;
 
-    @Schema(name = "curr", description = " Moneda en la que se paga", example = "EUR")
-    private String curr;
+    @Schema(name = "currency", description = "Currency", example = "EUR")
+    private String currency;
 }

@@ -6,10 +6,11 @@ import com.comercio.infrastructure.api.PriceApi;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @RestController
@@ -19,12 +20,11 @@ public class PriceController implements PriceApi {
     private final PriceService productService;
 
     @Override
-    public ResponseEntity<PriceDTO> getPriceInfoByProduct(String brandId, String productId, OffsetDateTime applicationDate) {
+    public ResponseEntity<PriceDTO> getPriceInfoByProduct(String brandId, String productId, LocalDateTime applicationDate) {
+        logger.info("getPriceInfoByProduct :: brandId {}, productId {}, applicationDate {}", brandId, productId, applicationDate);
 
-        logger.info("getPriceInfoByProduct :: branid {}, productId {}, applicationDate{}",brandId,productId,applicationDate);
-
-        productService.getPriceInfoByProduct(brandId, productId, applicationDate);
-
-        return ResponseEntity.ok(null);
+        PriceDTO priceDTO = productService.getPriceInfoByProduct(brandId, productId, applicationDate);
+        return priceDTO != null ? ResponseEntity.ok(priceDTO) : ResponseEntity.noContent().build();
     }
+
 }

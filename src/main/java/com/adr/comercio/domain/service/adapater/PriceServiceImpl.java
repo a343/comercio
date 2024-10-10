@@ -4,14 +4,14 @@ import com.adr.comercio.application.converters.PriceConverter;
 import com.adr.comercio.domain.model.Price;
 import com.adr.comercio.domain.repository.PriceRepository;
 import com.adr.comercio.domain.service.port.PriceService;
-import com.adr.comercio.infrastructure.controller.PriceController;
 import com.comercio.aplicacion.dto.PriceDTO;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -25,13 +25,20 @@ public class PriceServiceImpl implements PriceService {
 
 
     @Override
-    public PriceDTO getPriceInfoByProduct(String brandId, String productId, OffsetDateTime applicationDate) {
+    public PriceDTO getPriceInfoByProduct(final String brandId, final String productId,final LocalDateTime applicationDate) {
+       final List<Price> prices = priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId, productId, applicationDate, applicationDate);
 
-        List<Price> prices = priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId, productId, applicationDate,applicationDate);
-        Price price = prices.stream().max((p1, p2) -> p1.getPriority().compareTo(p2.getPriority())).get();
+        if (prices.isEmpty()) {
+            return null;
+        }
 
-        logger.debug("Got price from database ", price);
+        final Price price = prices.stream()
+                .max(Comparator.comparing(Price::getPriority))
+                .orElse(null);
+
+        logger.debug("Got price from database: {}", price);
 
         return priceConverter.convert(price);
     }
+
 }
