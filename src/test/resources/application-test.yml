@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: comercio
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: null
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none  # Usamos schema.sql para crear la tabla, por lo que no necesitamos que Hibernate cree las tablas
+    show-sql: true
+    sql:
+      init:
+        mode: always  # Forzar la ejecución de schema.sql y data.sql
+    open-in-view: false
+  h2:
+    console:
+      enabled: true

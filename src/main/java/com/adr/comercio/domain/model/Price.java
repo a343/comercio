@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Table(name = "PRICE")
+@Table(name = "PRICES")
 @Entity
 @Getter
 @Setter
