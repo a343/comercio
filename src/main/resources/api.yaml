@@ -7,7 +7,7 @@ paths:
   /price/{productId}/{brandId}/:
     get:
       tags:
-        - Product
+        - Prices
       summary: Obtener el precio del producto buscando por ID de empresa, producto y fecha de aplicacion.
       description: Obtener el precio del producto buscando por ID de empresa, producto y fecha de aplicacion.
       operationId: getPriceInfoByProduct

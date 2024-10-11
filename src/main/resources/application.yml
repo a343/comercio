@@ -1,10 +1,8 @@
 server:
   error:
     include-stacktrace: never
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  servlet:
+    context-path: /comercio
 
 spring:
   application:
@@ -26,3 +24,9 @@ spring:
   h2:
     console:
       enabled: true
+  doc:
+    api-docs:
+      path: /v3/api-docs
+    swagger-ui:
+      path: /swagger-ui
+      disable-swagger-default-url: true

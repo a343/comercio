@@ -11,7 +11,7 @@
     <groupId>com.adr</groupId>
     <artifactId>comercio</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>comercio</name>
+    <name>Comercio</name>
     <description>App comercio electronico</description>
 
     <properties>

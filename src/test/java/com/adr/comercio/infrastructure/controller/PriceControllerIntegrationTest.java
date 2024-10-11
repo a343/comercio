@@ -24,7 +24,7 @@ class PriceControllerIntegrationTest {
     void testGetPriceInfoAt10amOn14th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T10:00:00");
 
-        mockMvc.perform(get("/price/35455/1/")
+        mockMvc.perform(get("/comercio/price/35455/1/")
                         .param("applicationDate", applicationDate.toString())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -36,7 +36,7 @@ class PriceControllerIntegrationTest {
     void testGetPriceInfoAt4pmOn14th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T16:00:00");
 
-        mockMvc.perform(get("/price/35455/1/")
+        mockMvc.perform(get("/comercio/price/35455/1/")
                         .param("applicationDate", applicationDate.toString())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -48,7 +48,7 @@ class PriceControllerIntegrationTest {
     void testGetPriceInfoAt9pmOn14th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T21:00:00");
 
-        mockMvc.perform(get("/price/35455/1/")
+        mockMvc.perform(get("/comercio/price/35455/1/")
                         .param("applicationDate", applicationDate.toString())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -60,7 +60,7 @@ class PriceControllerIntegrationTest {
     void testGetPriceInfoAt10amOn15th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-15T10:00:00");
 
-        mockMvc.perform(get("/price/35455/1/")
+        mockMvc.perform(get("/comercio/price/35455/1/")
                         .param("applicationDate", applicationDate.toString())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -72,7 +72,7 @@ class PriceControllerIntegrationTest {
     void testGetPriceInfoAt9pmOn16th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-16T21:00:00");
 
-        mockMvc.perform(get("/price/35455/1/")
+        mockMvc.perform(get("/comercio/price/35455/1/")
                         .param("applicationDate", applicationDate.toString())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
