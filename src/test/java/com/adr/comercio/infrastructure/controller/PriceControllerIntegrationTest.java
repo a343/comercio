@@ -15,13 +15,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PriceControllerIntegrationTest {
+class PriceControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void testGetPriceInfoAt10amOn14th() throws Exception {
+    void testGetPriceInfoAt10amOn14th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T10:00:00");
 
         mockMvc.perform(get("/price/35455/1/")
@@ -29,11 +29,11 @@ public class PriceControllerIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":30.50}"));
+                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":35.50, \"startDate\":\"2020-06-14T00:00:00\", \"endDate\":\"2020-12-31T23:59:59\"}"));
     }
 
     @Test
-    public void testGetPriceInfoAt4pmOn14th() throws Exception {
+    void testGetPriceInfoAt4pmOn14th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T16:00:00");
 
         mockMvc.perform(get("/price/35455/1/")
@@ -41,11 +41,11 @@ public class PriceControllerIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":25.50}"));
+                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":25.45}, \"startDate\":\"2020-06-14T15:00:00\", \"endDate\":\"2020-06-14 18:30:00\"}"));
     }
 
     @Test
-    public void testGetPriceInfoAt9pmOn14th() throws Exception {
+    void testGetPriceInfoAt9pmOn14th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T21:00:00");
 
         mockMvc.perform(get("/price/35455/1/")
@@ -53,11 +53,11 @@ public class PriceControllerIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":20.00}"));
+                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":35.50, \"startDate\":\"2020-06-14T00:00:00\", \"endDate\":\"2020-12-31T23:59:59\"}"));
     }
 
     @Test
-    public void testGetPriceInfoAt10amOn15th() throws Exception {
+    void testGetPriceInfoAt10amOn15th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-15T10:00:00");
 
         mockMvc.perform(get("/price/35455/1/")
@@ -65,11 +65,11 @@ public class PriceControllerIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":18.00}"));
+                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":30.50 , \"startDate\":\"2020-06-15T00:00:00\", \"endDate\":\"2020-06-15T11:00:00\"}"));
     }
 
     @Test
-    public void testGetPriceInfoAt9pmOn16th() throws Exception {
+    void testGetPriceInfoAt9pmOn16th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-16T21:00:00");
 
         mockMvc.perform(get("/price/35455/1/")
@@ -77,6 +77,6 @@ public class PriceControllerIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":17.50}"));
+                .andExpect(content().json("{\"brandId\":\"1\",\"productId\":\"35455\",\"price\":50.95, \"startDate\":\"2020-06-15T16:00:00\", \"endDate\":\"2020-12-31T23:59:59\"}"));
     }
 }

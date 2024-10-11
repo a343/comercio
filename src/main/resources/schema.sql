@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS Prices (
   end_date TIMESTAMP,
   product_id VARCHAR(255),
   priority SMALLINT,
-  price INT,
+  price DECIMAL(10, 2),
   currency VARCHAR(3)
 );
