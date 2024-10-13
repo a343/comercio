@@ -113,14 +113,12 @@
                             <configOptions>
                                 <java8>true</java8>
                                 <dateLibrary>custom</dateLibrary>
-                                <useInterfaceOnly>true</useInterfaceOnly>
                                 <interfaceOnly>true</interfaceOnly>
                                 <delegatePattern>false</delegatePattern>
                                 <modelPackage>com.comercio.aplicacion.dto</modelPackage>
                                 <apiPackage>com.comercio.infrastructure.api</apiPackage>
                                 <openApiNullable>false</openApiNullable>
                                 <useSpringBoot3>true</useSpringBoot3>
-                                <booleanGetterPrefix>is</booleanGetterPrefix>
                                 <additionalModelTypeAnnotations>
                                     @lombok.NoArgsConstructor
                                     @lombok.AllArgsConstructor

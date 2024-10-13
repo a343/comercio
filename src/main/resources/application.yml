@@ -11,22 +11,20 @@ spring:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
     username: sa
-    password: null
+    password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: none  # Usamos schema.sql para crear la tabla, por lo que no necesitamos que Hibernate cree las tablas
-    show-sql: true
     sql:
       init:
-        mode: always  # Forzar la ejecución de schema.sql y data.sql
-    open-in-view: false
+        mode: embedded  # Solo ejecutar SQL init cuando se use H2 u otra BD embebida
+    open-in-view: false # Buena práctica deshabilitar Open Session in View
   h2:
     console:
-      enabled: true
+      enabled: false
   doc:
     api-docs:
-      path: /v3/api-docs
+      path: /v3/api-docs  # Ruta de la especificación OpenAPI
     swagger-ui:
-      path: /swagger-ui
-      disable-swagger-default-url: true
+      path: /swagger-ui  # Ruta del Swagger UI

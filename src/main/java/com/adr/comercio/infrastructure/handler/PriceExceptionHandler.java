@@ -1,7 +1,6 @@
 package com.adr.comercio.infrastructure.handler;
 
 import com.adr.comercio.domain.exception.PriceException;
-import com.adr.comercio.domain.service.adapater.PriceServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

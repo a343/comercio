@@ -1,11 +1,13 @@
-spring:
-  application:
-    name: comercio
+server:
+  error:
+    include-stacktrace: never
+  servlet:
+    context-path: /comercio
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
     username: sa
-    password: null
+    password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
