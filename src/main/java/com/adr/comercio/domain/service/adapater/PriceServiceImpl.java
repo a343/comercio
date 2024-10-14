@@ -33,7 +33,7 @@ public class PriceServiceImpl implements PriceService {
 
         if (prices.isEmpty()) {
 
-            throw new PriceException(HttpStatus.NOT_FOUND, ErrorDTO.builder().message("There is no product with these characteristic").build());
+            throw new PriceException(HttpStatus.NOT_FOUND, ErrorDTO.builder().message("There is no product with these characteristics").build());
         }
 
         final Price price = prices.stream()
