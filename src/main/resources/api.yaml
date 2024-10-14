@@ -57,7 +57,7 @@ paths:
                 precio: 19.99
                 curr: EUR
         '400':
-          description: Parámetros incorrectos o formato no válido (e.g., fecha malformada)
+          description: Bad Request
           content:
             application/json:
               schema:
@@ -66,7 +66,7 @@ paths:
                 message: "Invalid parameter type"
                 details: "The date format should be 'yyyy-MM-dd'T'HH:mm:ss'"
         '404':
-          description: Recurso no encontrado
+          description: Not Found
           content:
             application/json:
               schema:
@@ -75,9 +75,9 @@ paths:
                 message: "Recurso no encontrado"
                 details: "Recurso no encontrado"
         '204':
-          description: No encontrado
+          description: No content
         '422':
-          description: Error de acceso a la base de datos
+          description: Unprocessable Content
           content:
             application/json:
               schema:
@@ -86,7 +86,7 @@ paths:
                 message: "Database is not accessible"
                 details: "There was an issue connecting to the database"
         '500':
-          description: Error interno del servidor
+          description: Internal Server Error
           content:
             application/json:
               schema:
