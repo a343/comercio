@@ -1,7 +1,7 @@
 package com.adr.comercio.application.handler;
 
 import com.adr.comercio.domain.exception.PriceException;
-import com.comercio.aplicacion.dto.ErrorDTO;
+import com.comercio.application.dto.ErrorDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

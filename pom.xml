@@ -115,8 +115,8 @@
                                 <dateLibrary>custom</dateLibrary>
                                 <interfaceOnly>true</interfaceOnly>
                                 <delegatePattern>false</delegatePattern>
-                                <modelPackage>com.comercio.aplicacion.dto</modelPackage>
-                                <apiPackage>com.comercio.infrastructure.api</apiPackage>
+                                <modelPackage>com.comercio.application.dto</modelPackage>
+                                <apiPackage>com.comercio.infrastructure.controller.api</apiPackage>
                                 <openApiNullable>false</openApiNullable>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <additionalModelTypeAnnotations>

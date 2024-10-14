@@ -1,9 +1,7 @@
 package com.adr.comercio.domain.exception;
 
-import com.comercio.aplicacion.dto.ErrorDTO;
-import lombok.Data;
+import com.comercio.application.dto.ErrorDTO;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.springframework.http.HttpStatus;
 

@@ -1,10 +1,11 @@
-package com.adr.comercio.domain.service.port.in;
+package com.adr.comercio.domain.port;
 
-import com.comercio.aplicacion.dto.PriceDTO;
+
+import com.comercio.application.dto.PriceDTO;
 
 import java.time.LocalDateTime;
 
-public interface PriceService {
+public interface PricePort {
 
     PriceDTO getPriceInfoByProduct(final int brandId, final int productId, final LocalDateTime applicationDate);
 }

@@ -1,12 +1,21 @@
-package com.adr.comercio.domain.model;
+package com.adr.comercio.infrastructure.persistence.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -19,7 +28,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Price implements Serializable {
+public class PriceEntity implements Serializable {
 
     private static final long serialVersionUID = 5L;
 
