@@ -30,16 +30,16 @@ public class Price implements Serializable {
     @NotNull
     @Column(name = "product_id")
     @Schema(name = "productId", description = "Product id", example = "35455")
-    private String productId;
+    private Integer productId;
 
     @NotNull
     @Schema(name = "brand_id", description = "Shop id", example = "1")
     @Size(min = 1)
-    private String brandId;
+    private Integer brandId;
 
     @Schema(name = "price_list",
             description = "Tariff id", example = "2")
-    private String priceList;
+    private Integer priceList;
 
     @Schema(name = "start_date",
             description = "Tariff start date",

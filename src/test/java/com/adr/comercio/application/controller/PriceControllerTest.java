@@ -1,13 +1,12 @@
-package com.adr.comercio.infrastructure.controller;
+package com.adr.comercio.application.controller;
 
-import com.adr.comercio.domain.service.port.PriceService;
+import com.adr.comercio.application.controller.PriceController;
+import com.adr.comercio.domain.service.port.in.PriceService;
 import com.comercio.aplicacion.dto.PriceDTO;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +30,8 @@ class PriceControllerTest {
 
     @Test
     void testGetPriceInfoByProduct_Success() {
-        final String brandId = "1";
-        final String productId = "35455";
+        final int brandId = 1;
+        final int productId = 35455;
         final String currency = "EUR";
 
         final LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 15, 10, 0);
@@ -49,17 +48,4 @@ class PriceControllerTest {
         verify(priceService).getPriceInfoByProduct(brandId, productId, applicationDate);
     }
 
-    @Test
-    void testGetPriceInfoByProduct_NoContent() {
-        final String brandId = "1";
-        final String productId = "35455";
-        final LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 15, 10, 0);
-
-        when(priceService.getPriceInfoByProduct(brandId, productId, applicationDate)).thenReturn(null);
-
-        ResponseEntity<PriceDTO> response = priceController.getPriceInfoByProduct(brandId, productId, applicationDate);
-
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-        verify(priceService).getPriceInfoByProduct(brandId, productId, applicationDate);
-    }
 }

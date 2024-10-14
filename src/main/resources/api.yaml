@@ -3,8 +3,17 @@ info:
   title: Comercio API
   description: Información del Comercio
   version: 1.0.0
+  contact:
+    name: Antonio Diaz
+    email: adr343@gmail.com
+servers:
+  - url: https://localhost:8080/comercio
+    description: Servidor de pruebas
+tags:
+  - name: Prices
+    description: Endpoints relacionados con los precios de los productos
 paths:
-  /price/{productId}/{brandId}/:
+  /price/{productId}/{brandId}:
     get:
       tags:
         - Prices
@@ -17,15 +26,15 @@ paths:
           description: Shop id
           required: true
           schema:
-            type: string
-          example: '1'
+            type: integer
+          example: 1
         - in: path
           name: productId
           description: Product id
           required: true
           schema:
-            type: string
-          example: '1565'
+            type: integer
+          example: 1565
         - in: query
           name: applicationDate
           description: Application date
@@ -48,13 +57,43 @@ paths:
                 precio: 19.99
                 curr: EUR
         '400':
-          description: Error en la URL
+          description: Parámetros incorrectos o formato no válido (e.g., fecha malformada)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                message: "Invalid parameter type"
+                details: "The date format should be 'yyyy-MM-dd'T'HH:mm:ss'"
+        '404':
+          description: Recurso no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                message: "Recurso no encontrado"
+                details: "Recurso no encontrado"
         '204':
           description: No encontrado
         '422':
-          description: Base de datos no accesible
+          description: Error de acceso a la base de datos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                message: "Database is not accessible"
+                details: "There was an issue connecting to the database"
         '500':
-          description: Internal Server Error
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                message: "Internal Server Error"
+                details: "An unexpected error occurred"
 
 components:
   schemas:
@@ -63,12 +102,12 @@ components:
       properties:
         brandId:
           description: company id
-          type: string
-          example: '1'
+          type: integer
+          example: 1
         productId:
           description: product id
-          type: string
-          example: '1565'
+          type: integer
+          example: 1567
         startDate:
           description: start application date
           type: string
@@ -87,3 +126,14 @@ components:
           description: currency
           type: string
           example: EUR
+    ErrorDTO:
+      type: object
+      properties:
+        message:
+          description: Breve descripción del error
+          type: string
+          example: "Invalid parameter type"
+        details:
+          description: Detalles adicionales sobre el error
+          type: string
+          example: "The date format should be 'yyyy-MM-dd'T'HH:mm:ss'"

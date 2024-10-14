@@ -1,6 +1,6 @@
-package com.adr.comercio.infrastructure.controller;
+package com.adr.comercio.application.controller;
 
-import com.adr.comercio.domain.service.port.PriceService;
+import com.adr.comercio.domain.service.port.in.PriceService;
 import com.comercio.aplicacion.dto.PriceDTO;
 import com.comercio.infrastructure.api.PriceApi;
 import lombok.AllArgsConstructor;
@@ -19,11 +19,11 @@ public class PriceController implements PriceApi {
     private final PriceService productService;
 
     @Override
-    public ResponseEntity<PriceDTO> getPriceInfoByProduct(String brandId, String productId, LocalDateTime applicationDate) {
+    public ResponseEntity<PriceDTO> getPriceInfoByProduct(final Integer brandId,final Integer productId,final LocalDateTime applicationDate) {
         logger.info("getPriceInfoByProduct :: brandId {}, productId {}, applicationDate {}", brandId, productId, applicationDate);
 
         PriceDTO priceDTO = productService.getPriceInfoByProduct(brandId, productId, applicationDate);
-        return priceDTO != null ? ResponseEntity.ok(priceDTO) : ResponseEntity.noContent().build();
+        return ResponseEntity.ok(priceDTO);
     }
 
 }

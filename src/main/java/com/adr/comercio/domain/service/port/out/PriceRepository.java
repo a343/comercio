@@ -1,4 +1,4 @@
-package com.adr.comercio.domain.repository;
+package com.adr.comercio.domain.service.port.out;
 
 import com.adr.comercio.domain.model.Price;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,8 +9,8 @@ import java.util.List;
 public interface PriceRepository extends JpaRepository<Price, Long> {
 
     List<Price> findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
-            String brandId,
-            String productId,
+            int brandId,
+            int productId,
             LocalDateTime fechaInicio,
             LocalDateTime fechaFin);
 

@@ -1,16 +1,15 @@
 package com.adr.comercio.domain.service;
 
 import com.adr.comercio.application.converters.PriceConverter;
+import com.adr.comercio.domain.exception.PriceException;
 import com.adr.comercio.domain.model.Price;
-import com.adr.comercio.domain.repository.PriceRepository;
+import com.adr.comercio.domain.service.port.out.PriceRepository;
 import com.adr.comercio.domain.service.adapater.PriceServiceImpl;
 import com.comercio.aplicacion.dto.PriceDTO;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
@@ -20,7 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class PriceServiceImplTest {
@@ -36,16 +35,23 @@ class PriceServiceImplTest {
 
 
     @Test
-    void getPriceInfoByProduct_NoPrices_ReturnsNull() {
-        when(priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyString(), anyString(), any(), any()))
-                .thenReturn(Collections.emptyList());
+    void testGetPriceInfoByProduct_NoPricesFound() {
+        // Arrange
+        int brandId = 1;
+        int productId = 1;
+        LocalDateTime applicationDate = LocalDateTime.now();
 
-        PriceDTO result = priceService.getPriceInfoByProduct("brand1", "product1", LocalDateTime.now());
+        when(priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+                brandId, productId, applicationDate, applicationDate)).thenReturn(Collections.emptyList());
 
-        assertNull(result);
-        verify(priceRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyString(), anyString(), any(), any());
-        verifyNoInteractions(priceConverter);
+        PriceException exception = assertThrows(PriceException.class, () -> {
+            priceService.getPriceInfoByProduct(brandId, productId, applicationDate);
+        });
+
+        // Verificar el mensaje de la excepción
+        assertEquals("There is no product with these characteristics", exception.getError().getMessage());
     }
+
 
     @Test
     void getPriceInfoByProduct_PriceFound_ReturnsHighestPriorityPrice() {
@@ -59,17 +65,17 @@ class PriceServiceImplTest {
 
         List<Price> prices = Arrays.asList(price1, price2);
 
-        when(priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyString(), anyString(), any(), any()))
+        when(priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyInt(), anyInt(), any(), any()))
                 .thenReturn(prices);
 
         PriceDTO priceDTO = PriceDTO.builder().build();
         when(priceConverter.convert(price2)).thenReturn(priceDTO);
 
-        PriceDTO result = priceService.getPriceInfoByProduct("brand1", "product1", LocalDateTime.now());
+        PriceDTO result = priceService.getPriceInfoByProduct(1, 1234, LocalDateTime.now());
 
         assertNotNull(result);
         assertEquals(priceDTO, result);
-        verify(priceRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyString(), anyString(), any(), any());
+        verify(priceRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyInt(), anyInt(), any(), any());
         verify(priceConverter).convert(price2);
     }
 
@@ -85,17 +91,17 @@ class PriceServiceImplTest {
 
         List<Price> prices = Arrays.asList(price1, price2);
 
-        when(priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyString(), anyString(), any(), any()))
+        when(priceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyInt(), anyInt(), any(), any()))
                 .thenReturn(prices);
 
         PriceDTO priceDTO = PriceDTO.builder().build();
         when(priceConverter.convert(price1)).thenReturn(priceDTO);
 
-        PriceDTO result = priceService.getPriceInfoByProduct("brand1", "product1", LocalDateTime.now());
+        PriceDTO result = priceService.getPriceInfoByProduct(1, 1234, LocalDateTime.now());
 
         assertNotNull(result);
         assertEquals(priceDTO, result);
-        verify(priceRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyString(), anyString(), any(), any());
+        verify(priceRepository).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(anyInt(), anyInt(), any(), any());
         verify(priceConverter).convert(price1);
     }
 }
