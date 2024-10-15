@@ -1,9 +1,10 @@
 package com.adr.comercio.infrastructure.persistence.repository.jpa;
 
 import com.adr.comercio.domain.exception.PriceException;
-import com.adr.comercio.domain.model.PriceVO;
+import com.adr.comercio.domain.model.Price;
 import com.adr.comercio.infrastructure.persistence.converter.PriceConverter;
 import com.adr.comercio.infrastructure.persistence.model.PriceEntity;
+import com.adr.comercio.infrastructure.persistence.repository.PriceRepository;
 import com.comercio.application.dto.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class PriceRepositoryImpl implements PriceRepository {
     }
 
     @Override
-    public List<PriceVO> findByBrandIdAndProductIdAndApplicationDate(final int brandId, final int productId, final LocalDateTime applicationDate) {
+    public List<Price> findByBrandIdAndProductIdAndApplicationDate(final int brandId, final int productId, final LocalDateTime applicationDate) {
         final List<PriceEntity> prices = jpaPriceRepository
                 .findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId, productId, applicationDate, applicationDate);
 

@@ -1,4 +1,4 @@
-package com.adr.comercio.application.controller;
+package com.adr.comercio.infrastructure.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

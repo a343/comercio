@@ -1,6 +1,6 @@
 package com.adr.comercio.application.adapater;
 
-import com.adr.comercio.application.converter.PriceVOConverter;
+import com.adr.comercio.application.converter.PriceDTOConverter;
 import com.adr.comercio.domain.port.PricePort;
 import com.adr.comercio.domain.port.PriceService;
 import com.comercio.application.dto.PriceDTO;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PriceRestAdapter implements PricePort {
 
-    private final PriceVOConverter priceConverter;
+    private final PriceDTOConverter priceConverter;
     private final PriceService priceServiceç;
 
     @Override

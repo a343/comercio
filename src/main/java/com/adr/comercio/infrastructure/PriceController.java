@@ -1,4 +1,4 @@
-package com.adr.comercio.infrastructure.controller;
+package com.adr.comercio.infrastructure;
 
 import com.adr.comercio.domain.port.PricePort;
 import com.comercio.application.dto.PriceDTO;

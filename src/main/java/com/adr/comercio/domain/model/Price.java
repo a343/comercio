@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PriceVO{
+public class Price {
 
     private static final long serialVersionUID = 5L;
 

@@ -1,12 +1,12 @@
 package com.adr.comercio.application.converter;
 
-import com.adr.comercio.domain.model.PriceVO;
+import com.adr.comercio.domain.model.Price;
 import com.comercio.application.dto.PriceDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface PriceVOConverter {
+public interface PriceDTOConverter {
 
-    PriceDTO convert(PriceVO price);
+    PriceDTO convert(Price price);
 
 }
