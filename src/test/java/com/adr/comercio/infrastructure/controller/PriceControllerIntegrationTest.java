@@ -21,7 +21,7 @@ class PriceControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    void testGetPriceInfoAt10amOn14th() throws Exception {
+    void getPriceInfoAt10amOn14th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T10:00:00");
 
         mockMvc.perform(get("/price/35455/1")
@@ -33,7 +33,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void testGetPriceInfoAt4pmOn14th() throws Exception {
+    void getPriceInfoAt4pmOn14th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T16:00:00");
 
         mockMvc.perform(get("/price/35455/1")
@@ -45,7 +45,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void testGetPriceInfoAt9pmOn14th() throws Exception {
+    void getPriceInfoAt9pmOn14th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T21:00:00");
 
         mockMvc.perform(get("/price/35455/1")
@@ -57,7 +57,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void testGetPriceInfoAt10amOn15th() throws Exception {
+    void getPriceInfoAt10amOn15th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-15T10:00:00");
 
         mockMvc.perform(get("/price/35455/1")
@@ -69,7 +69,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void testGetPriceInfoAt9pmOn16th() throws Exception {
+    void getPriceInfoAt9pmOn16th() throws Exception {
         LocalDateTime applicationDate = LocalDateTime.parse("2020-06-16T21:00:00");
 
         mockMvc.perform(get("/price/35455/1")
@@ -82,7 +82,7 @@ class PriceControllerIntegrationTest {
 
 
     @Test
-    void testMissingApplicationDateParameter() throws Exception {
+    void missingApplicationDateParameter() throws Exception {
         mockMvc.perform(get("/price/35455/1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
@@ -91,7 +91,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void testInvalidDateFormat() throws Exception {
+    void invalidDateFormat() throws Exception {
         mockMvc.perform(get("/price/35455/1")
                         .param("applicationDate", "invalid-date-format")
                         .accept(MediaType.APPLICATION_JSON))
@@ -101,7 +101,7 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void testInvalidBrandIdType() throws Exception {
+    void invalidBrandIdType() throws Exception {
         mockMvc.perform(get("/price/35455/abc")
                         .param("applicationDate", "2020-06-16T21:00:00")
                         .accept(MediaType.APPLICATION_JSON))
@@ -111,12 +111,22 @@ class PriceControllerIntegrationTest {
     }
 
     @Test
-    void testInvalidProductIdType() throws Exception {
+    void invalidProductIdType() throws Exception {
         mockMvc.perform(get("/price/abc/1")
                         .param("applicationDate", "2020-06-16T21:00:00")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("{\"message\":\"Invalid parameter type\",\"details\":\"The parameter 'productId' should be of type 'Integer'\"}"));
+    }
+
+    @Test
+    void shouldReturnNotFoundPrices() throws Exception {
+        mockMvc.perform(get("/price/3511455/1")
+                        .param("applicationDate", "2020-06-16T21:00:00")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("{\"message\":\"There is no product with these characteristics\",\"details\": null}"));
     }
 }
