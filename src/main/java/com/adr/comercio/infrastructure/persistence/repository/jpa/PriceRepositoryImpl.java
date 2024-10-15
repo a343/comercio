@@ -1,5 +1,6 @@
 package com.adr.comercio.infrastructure.persistence.repository.jpa;
 
+import com.adr.comercio.application.dto.Errors;
 import com.adr.comercio.domain.exception.PriceException;
 import com.adr.comercio.domain.model.Price;
 import com.adr.comercio.infrastructure.persistence.converter.PriceConverter;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PriceRepositoryImpl implements PriceRepository {
@@ -25,17 +27,21 @@ public class PriceRepositoryImpl implements PriceRepository {
 
     @Override
     public List<Price> findByBrandIdAndProductIdAndApplicationDate(final int brandId, final int productId, final LocalDateTime applicationDate) {
-        final List<PriceEntity> prices = jpaPriceRepository
+        List<PriceEntity> prices = jpaPriceRepository
                 .findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId, productId, applicationDate, applicationDate);
 
-        if (prices.isEmpty()) {
-            throw new PriceException(HttpStatus.NOT_FOUND,
-                    ErrorDTO.builder().message("There is no product with these characteristics")
-                            .build());
-        }
-
-        return priceConverter.convert(prices);
+        return Optional.of(prices)
+                .filter(priceList -> !priceList.isEmpty())
+                .map(priceConverter::convert)
+                .orElseThrow(() -> createPriceNotFoundException());
     }
+
+    private PriceException createPriceNotFoundException() {
+        return new PriceException(HttpStatus.NOT_FOUND,
+                ErrorDTO.builder().message(Errors.ERROR_NOT_FOUND)
+                        .build());
+    }
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.adr.comercio.infrastructure.persistence.repository.jpa;
 
+import com.adr.comercio.application.dto.Errors;
 import com.adr.comercio.domain.exception.PriceException;
 import com.adr.comercio.domain.model.Price;
 import com.adr.comercio.infrastructure.persistence.converter.PriceConverter;
@@ -45,11 +46,11 @@ class PriceRepositoryImplTest {
 
         final PriceEntity priceEntity1 = new PriceEntity();
         final PriceEntity priceEntity2 = new PriceEntity();
-        List<PriceEntity> priceEntities = List.of(priceEntity1, priceEntity2);
+        final List<PriceEntity> priceEntities = List.of(priceEntity1, priceEntity2);
 
         final Price price1 = new Price();
         final Price price2 = new Price();
-        List<Price> expectedPrices = List.of(price1, price2);
+        final List<Price> expectedPrices = List.of(price1, price2);
 
         when(jpaPriceRepository.findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId, productId, applicationDate, applicationDate)).thenReturn(priceEntities);
         when(priceConverter.convert(priceEntities)).thenReturn(expectedPrices);
@@ -73,7 +74,7 @@ class PriceRepositoryImplTest {
         final PriceException exception = assertThrows(PriceException.class, () -> priceRepositoryImpl.findByBrandIdAndProductIdAndApplicationDate(brandId, productId, applicationDate));
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getErroCode());
-        assertEquals("There is no product with these characteristics", exception.getError().getMessage());
+        assertEquals(Errors.ERROR_NOT_FOUND, exception.getError().getMessage());
 
         verify(jpaPriceRepository, times(1)).findByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(brandId, productId, applicationDate, applicationDate);
         verify(priceConverter, never()).convert(anyList());

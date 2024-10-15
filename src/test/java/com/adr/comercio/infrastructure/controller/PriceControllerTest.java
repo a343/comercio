@@ -1,5 +1,6 @@
 package com.adr.comercio.application.controller;
 
+import com.adr.comercio.application.dto.Errors;
 import com.adr.comercio.domain.exception.PriceException;
 import com.adr.comercio.domain.port.PricePort;
 import com.adr.comercio.infrastructure.PriceController;
@@ -59,12 +60,12 @@ class PriceControllerTest {
 
         when(pricePort.getPriceInfoByProduct(brandId, productId, applicationDate))
                 .thenThrow(new PriceException(HttpStatus.NOT_FOUND,
-                        ErrorDTO.builder().message("There is no product with these characteristics").build()));
+                        ErrorDTO.builder().message(Errors.ERROR_NOT_FOUND).build()));
 
         final PriceException exception = assertThrows(PriceException.class, () -> pricePort.getPriceInfoByProduct(brandId, productId, applicationDate));
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getErroCode());
-        assertEquals("There is no product with these characteristics", exception.getError().getMessage());
+        assertEquals(Errors.ERROR_NOT_FOUND, exception.getError().getMessage());
 
         verify(pricePort, times(1)).getPriceInfoByProduct(brandId, productId, applicationDate);
     }

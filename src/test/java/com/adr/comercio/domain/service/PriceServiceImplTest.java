@@ -43,7 +43,7 @@ class PriceServiceImplTest {
         when(priceRepository.findByBrandIdAndProductIdAndApplicationDate(brandId, productId, applicationDate))
                 .thenReturn(List.of(price1, price2));
 
-        Price result = priceService.getPriceInfoByProduct(brandId, productId, applicationDate);
+        final Price result = priceService.getPriceInfoByProduct(brandId, productId, applicationDate);
 
         assertNotNull(result);
         assertEquals(2, result.getPriority());
@@ -52,9 +52,9 @@ class PriceServiceImplTest {
 
     @Test
     void getPriceInfoByProduct_ThrowsNoSuchElementException_WhenNoPrices() {
-        int brandId = 1;
-        int productId = 100;
-        LocalDateTime applicationDate = LocalDateTime.now();
+        final int brandId = 1;
+        final int productId = 100;
+        final LocalDateTime applicationDate = LocalDateTime.now();
 
         when(priceRepository.findByBrandIdAndProductIdAndApplicationDate(brandId, productId, applicationDate))
                 .thenReturn(List.of());

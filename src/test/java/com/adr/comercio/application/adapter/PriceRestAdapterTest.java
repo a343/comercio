@@ -2,6 +2,7 @@ package com.adr.comercio.application.adapter;
 
 import com.adr.comercio.application.adapater.PriceRestAdapter;
 import com.adr.comercio.application.converter.PriceDTOConverter;
+import com.adr.comercio.application.dto.Errors;
 import com.adr.comercio.domain.exception.PriceException;
 import com.adr.comercio.domain.model.Price;
 import com.adr.comercio.domain.port.PriceService;
@@ -68,12 +69,12 @@ class PriceRestAdapterTest {
 
         when(priceService.getPriceInfoByProduct(brandId, productId, applicationDate))
                 .thenThrow(new PriceException(HttpStatus.NOT_FOUND,
-                        ErrorDTO.builder().message("There is no product with these characteristics").build()));
+                        ErrorDTO.builder().message(Errors.ERROR_NOT_FOUND).build()));
 
         final PriceException exception = assertThrows(PriceException.class, () -> priceService.getPriceInfoByProduct(brandId, productId, applicationDate));
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getErroCode());
-        assertEquals("There is no product with these characteristics", exception.getError().getMessage());
+        assertEquals(Errors.ERROR_NOT_FOUND, exception.getError().getMessage());
 
         verify(priceService, times(1)).getPriceInfoByProduct(brandId, productId, applicationDate);
         verify(priceConverter, never()).convert(any());

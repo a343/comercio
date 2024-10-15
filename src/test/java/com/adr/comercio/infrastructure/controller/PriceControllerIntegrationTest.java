@@ -22,7 +22,7 @@ class PriceControllerIntegrationTest {
 
     @Test
     void getPriceInfoAt10amOn14th() throws Exception {
-        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T10:00:00");
+       final LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T10:00:00");
 
         mockMvc.perform(get("/price/35455/1")
                         .param("applicationDate", applicationDate.toString())
@@ -34,7 +34,7 @@ class PriceControllerIntegrationTest {
 
     @Test
     void getPriceInfoAt4pmOn14th() throws Exception {
-        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T16:00:00");
+        final  LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T16:00:00");
 
         mockMvc.perform(get("/price/35455/1")
                         .param("applicationDate", applicationDate.toString())
@@ -46,7 +46,7 @@ class PriceControllerIntegrationTest {
 
     @Test
     void getPriceInfoAt9pmOn14th() throws Exception {
-        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T21:00:00");
+        final LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T21:00:00");
 
         mockMvc.perform(get("/price/35455/1")
                         .param("applicationDate", applicationDate.toString())
@@ -58,7 +58,7 @@ class PriceControllerIntegrationTest {
 
     @Test
     void getPriceInfoAt10amOn15th() throws Exception {
-        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-15T10:00:00");
+        final LocalDateTime applicationDate = LocalDateTime.parse("2020-06-15T10:00:00");
 
         mockMvc.perform(get("/price/35455/1")
                         .param("applicationDate", applicationDate.toString())
@@ -70,7 +70,7 @@ class PriceControllerIntegrationTest {
 
     @Test
     void getPriceInfoAt9pmOn16th() throws Exception {
-        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-16T21:00:00");
+        final LocalDateTime applicationDate = LocalDateTime.parse("2020-06-16T21:00:00");
 
         mockMvc.perform(get("/price/35455/1")
                         .param("applicationDate", applicationDate.toString())
@@ -93,7 +93,7 @@ class PriceControllerIntegrationTest {
     @Test
     void invalidDateFormat() throws Exception {
         mockMvc.perform(get("/price/35455/1")
-                        .param("applicationDate", "invalid-date-format")
+                        .param("applicationDate", "2020-06-16 21:00:00")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
